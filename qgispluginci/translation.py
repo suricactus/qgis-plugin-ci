@@ -71,8 +71,12 @@ class Translation:
             assert f.write('SOURCES = {}\n'.format(' '.join(source_files)))
             assert f.write('TRANSLATIONS = {}\n'.format(self.ts_file))
             f.flush()
+            f.close()
 
         cmd = [self.parameters.pylupdate5_path, '-noobsolete', str(project_file)]
+
+        print('running: ', cmd)
+        print('contents: ', open(project_file, "r").read())
 
         output = subprocess.run(cmd, capture_output=True, text=True)
 
